@@ -90,8 +90,12 @@ public class Algebra {
 
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
-		int result = 0;
-	    boolean negative = false;
+	 if (x2 == 0) {
+        return 0;
+    }
+
+    int result = 0;
+    boolean negative = false;
 
     if (x1 < 0) {
         x1 = minus(0, x1);
@@ -116,11 +120,15 @@ public class Algebra {
 
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
+      if (x2 == 0) {
+        return 0;
+    }
     int q = div(x1, x2);
     int t = times(x2, q);
     int r = minus(x1, t);
     return r;
 }
+
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
