@@ -28,9 +28,12 @@ public class LoanCalc {
 	// Computes the ending balance of a loan, given the loan amount, the periodical
 	// interest rate (as a percentage), the number of periods (n), and the periodical payment.
 	private static double endBalance(double loan, double rate, int n, double payment) {	
-		// Replace the following statement with your code
-		return 0;
-	}
+	  double balance = loan;
+    for (int i = 0; i < n; i++) {
+        balance = (balance - payment) * (1 + rate / 100.0);
+    }
+    return balance;
+}
 	
 	// Uses sequential search to compute an approximation of the periodical payment
 	// that will bring the ending balance of a loan close to 0.
@@ -38,9 +41,19 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
-		// Replace the following statement with your code
-		return 0;
+    iterationCounter = 0;
+
+    double payment = loan / n;
+    double balance = endBalance(loan, rate, n, payment);
+
+    while (balance > 0) {
+        payment = payment + epsilon;
+        balance = endBalance(loan, rate, n, payment);
+        iterationCounter++;
     }
+
+    return payment;
+}
     
     // Uses bisection search to compute an approximation of the periodical payment 
 	// that will bring the ending balance of a loan close to 0.
@@ -48,7 +61,33 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
-        // Replace the following statement with your code
-		return 0;
+     iterationCounter = 0;
+
+    double l = loan / n;
+    double h = loan;
+    double g = (l + h) / 2.0;
+
+    while (h - l > epsilon) {
+        g = (l + h) / 2.0;
+
+        double fL = endBalance(loan, rate, n, l);
+        double fG = endBalance(loan, rate, n, g);
+
+        if (fL * fG <= 0) {
+            h = g;
+        } else {
+            l = g;
+        }
+
+        iterationCounter++;
     }
+
+    return g;
 }
+}
+
+
+
+
+
+	
