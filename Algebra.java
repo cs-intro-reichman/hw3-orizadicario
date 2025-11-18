@@ -23,127 +23,130 @@ public class Algebra {
    		System.out.println(sqrt(76123));
 	}  
 
-	// Returns x1 + x2
-	public static int plus(int x1, int x2) {
-		if(x2>=0){
-		for(int i=0; i<x2; i++){
-			x1++;
-		}
-	}else{
-		for(int i=0; i>x2; i--){
-			x1--;
-		}
-	}
-
-		return x1;
-	}
-
-	// Returns x1 - x2
-	public static int minus(int x1, int x2) {
-		if(x2<0){
-		for(int i=0; i>x2; i--){
-			x1++;
-		}
-	}else{
-		for(int i=0; i<x2; i++){
-			x1--;
-		}
-	}
-		return x1;
-	}
-
-	// Returns x1 * x2
-	public static int times(int x1, int x2) {
-		int result=0;
-		if(x1<0&&x2<0){
-			for(int i=0; i<(-x2); i++){
-			result=minus(result,x1);
-		}
-		}else if(x1>0&&x2<0){
-			for(int i=0; i<(-x2); i++){
-			result=plus(x1,result);
-		}result= minus(0,result);
-		}else if(x1>0&&x2>0){
-		    for(int i=0; i<x2; i++){
-			result=plus(x1,result);
-		}	
-		}else if(x1<0&&x2>0){
-		    for(int i=0; i<x2; i++){
-			result=plus(x1,result);
-		}	
-		}else if(x1==0||x2==0){
-			result=0;
-		}
-		return result;
-	}
-
-	// Returns x^n (for n >= 0)
-	public static int pow(int x, int n) {
-		int result=1;
-		if(n>=0){
-			for(int i=0; i<n; i++){
-				result=times(result,x);
-			}
-		}
-		return result;
-	}
-
-	// Returns the integer part of x1 / x2 
-	public static int div(int x1, int x2) {
-	 if (x2 == 0) {
-        return 0;
+    // Returns x1 + x2
+    public static int plus(int x1, int x2) {
+        if (x2 >= 0) {
+            for (int i = 0; i < x2; i++) {
+                x1++;
+            }
+        } else {
+            for (int i = 0; i > x2; i--) {
+                x1--;
+            }
+        }
+        return x1;
     }
 
-    int result = 0;
-    boolean negative = false;
-
-    if (x1 < 0) {
-        x1 = minus(0, x1);
-        negative = !negative;
-    }
-    if (x2 < 0) {
-        x2 = minus(0, x2);
-        negative = !negative;
-    }
-
-    while (x1 >= x2) {
-        x1 = minus(x1, x2);
-        result++;
+    // Returns x1 - x2
+    public static int minus(int x1, int x2) {
+        if (x2 < 0) {
+            for (int i = 0; i > x2; i--) {
+                x1++;
+            }
+        } else {
+            for (int i = 0; i < x2; i++) {
+                x1--;
+            }
+        }
+        return x1;
     }
 
-    if (negative) {
-        result = minus(0, result);
+    // Returns x1 * x2
+    public static int times(int x1, int x2) {
+        int result = 0;
+        if (x1 < 0 && x2 < 0) {
+            for (int i = 0; i < (-x2); i++) {
+                result = minus(result, x1);
+            }
+        } else if (x1 > 0 && x2 < 0) {
+            for (int i = 0; i < (-x2); i++) {
+                result = plus(x1, result);
+            }
+            result = minus(0, result);
+        } else if (x1 > 0 && x2 > 0) {
+            for (int i = 0; i < x2; i++) {
+                result = plus(x1, result);
+            }
+        } else if (x1 < 0 && x2 > 0) {
+            for (int i = 0; i < x2; i++) {
+                result = plus(x1, result);
+            }
+        } else if (x1 == 0 || x2 == 0) {
+            result = 0;
+        }
+        return result;
     }
 
-    return result;
-}
-
-	// Returns x1 % x2
-	public static int mod(int x1, int x2) {
-      if (x2 == 0) {
-        return 0;
+    // Returns x^n (for n >= 0)
+    public static int pow(int x, int n) {
+        int result = 1;
+        if (n >= 0) {
+            for (int i = 0; i < n; i++) {
+                result = times(result, x);
+            }
+        }
+        return result;
     }
-    int q = div(x1, x2);
-    int t = times(x2, q);
-    int r = minus(x1, t);
-    return r;
-}
 
+    // Returns the integer part of x1 / x2 
+    public static int div(int x1, int x2) {
+        if (x2 == 0) {
+            return 0;
+        }
 
-	// Returns the integer part of sqrt(x) 
-	public static int sqrt(int x) {
-		int x1=x;
-		double epsilon=0.1;
-		int L=1, H=x1;
-		int g = div(plus(L,H),2);
-		while(Math.abs(minus(times(g,g),x1))>=epsilon){
-			if(times(g,g)<x1){
-			L=g;	
-			}else{
-			H=g;	
-			}g=(div(plus(L,H),2));
-			
-		}
-		return g;
-	}	  	  
+        int result = 0;
+        boolean negative = false;
+
+        if (x1 < 0) {
+            x1 = minus(0, x1);
+            negative = !negative;
+        }
+        if (x2 < 0) {
+            x2 = minus(0, x2);
+            negative = !negative;
+        }
+
+        while (x1 >= x2) {
+            x1 = minus(x1, x2);
+            result++;
+        }
+
+        if (negative) {
+            result = minus(0, result);
+        }
+
+        return result;
+    }
+
+    // Returns x1 % x2
+    public static int mod(int x1, int x2) {
+        if (x2 == 0) {
+            return 0;
+        }
+        int q = div(x1, x2);
+        int t = times(x2, q);
+        int r = minus(x1, t);
+        return r;
+    }
+
+    // Returns the integer part of sqrt(x) 
+    public static int sqrt(int x) {
+        if (x <= 0) {
+            return 0;
+        }
+        int L = 1;
+        int H = x;
+        int g = div(plus(L, H), 2);
+
+        while (minus(H, L) > 1) {
+            if (times(g, g) <= x) {
+                L = g;
+            } else {
+                H = g;
+            }
+            g = div(plus(L, H), 2);
+        }
+
+        return g;
+	}
 }
